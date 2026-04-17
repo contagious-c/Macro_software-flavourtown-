@@ -1,0 +1,152 @@
+import pynput
+from pynput import keyboard
+from pynput.keyboard import Controller
+
+
+keyboard_controller = keyboard.Controller()
+
+Running = True
+
+Exit_key = None
+
+universal_counter = 0
+macro_lst = []
+macro_key_lst = []
+macro_text_lst = []
+macro_name = None
+macro_text = None
+macro_keybind = None
+
+
+
+Set_macro_running = False
+set_macro_name = True
+Edit_macro_running = False
+Running_macro_running = False
+Remove_macro_running = False
+
+while Running:
+    print("What would You like to do")
+    print("1. Set maro")
+    print("2. Edit macro")
+    print("3. Run macro")
+    print("4. Remove macro")
+    print ("5 Exit")
+    first_choice = input("please select a number > ")
+    if first_choice == "1":
+        Set_macro_running = True
+        while Set_macro_running:
+                print("What would you like to name your macro")
+                macro_name = input("> ")                  
+                print("what text do you want this macro to produce: ")
+                macro_text = input("> ")
+                print("what keybind do you want to link this macro to(1 key only): ")
+                macro_keybind = input("> ")
+                print(f"Are you sure you want to make a macro called \"{macro_name}\" that produces the text \"{macro_text}\" and is linked to the keybind \"{macro_keybind}\" ?  ")
+                yes_or_no_answer = input("Y or N > ")
+                if yes_or_no_answer == "Y":
+                    print("Macro saved")
+                    macro_lst.append([macro_name, macro_keybind, macro_text])
+                    macro_key_lst.append(macro_keybind)
+                    macro_text_lst.append(macro_text)
+                    print(macro_lst)
+                    Set_macro_running = False
+                elif yes_or_no_answer == "N":
+                    print("Macro draft discarded")
+                    Set_macro_running = False
+                else:
+                    print("Invalid choice please try again")
+                    continue
+    elif first_choice == "2":
+        Edit_macro_running = True
+        while Edit_macro_running:
+            print("What macro would you like to edit(Input nothing to exit)")
+            print(macro_lst)
+            choice_to_edit = input("> ")
+            if choice_to_edit == "":
+                Edit_macro_running = False
+            for group in macro_lst:
+                    for name in group:
+                        if choice_to_edit == name:
+                            print("found")
+                            print("What would you like to change Name, Keybind or Text")
+                            what_to_change = input("> ")
+                            if what_to_change == "name" or what_to_change == "Name":
+                                print("what would you like the new name to be")
+                                new_name = input("> ")
+                                universal_counter = 0
+                                for group in macro_lst:
+                                    universal_counter += 1
+                                    if choice_to_edit == name:
+                                        macro_lst[universal_counter - 1][0] = new_name
+                                        print("Macro changed")
+                                        Edit_macro_running = False
+                                Edit_macro_running = False                
+                                        
+
+
+                            elif what_to_change == "keybind" or what_to_change == "Keybind":
+                                print("what would you like the new keybind to be?")
+                                new_keybind = input("> ")
+                                group[1] = new_keybind
+                                universal_counter = 0
+                                for group in macro_lst:
+                                    universal_counter += 1
+                                    if choice_to_edit == name:
+                                      macro_key_lst[universal_counter - 1 ] = new_keybind
+                                Edit_macro_running = False
+                                    
+                            elif what_to_change == "Text" or what_to_change == "text":
+                                print("what would you the new text to be?")
+                                new_Text = input("> ")
+                                group[2] = new_Text
+                                universal_counter = 0
+                                for group in macro_lst:
+                                    universal_counter += 1
+                                    if choice_to_edit == name:
+                                        macro_text_lst[universal_counter - 1 ] = new_Text 
+                                Edit_macro_running = False
+                            else:
+                                print("invalid choice")
+            print("Not found")         
+
+    elif first_choice == "3":
+        Running_macro_running = True
+        if Running_macro_running:
+            print("macro running")
+            def on_press(key):
+                try:
+                    if key.char in macro_key_lst:
+                        for i in range(len(macro_key_lst)):
+                            if key.char == macro_key_lst[i]:
+                                keyboard_controller.type(macro_text_lst[i])
+                            print(f"{key} was pressed")
+                except AttributeError:
+                    # Check for special keys (Shift, Ctrl, etc.)
+                    print(f"{key} is special and was pressed")
+            def on_release(key):
+                # Stop listener if Escape is pressed
+                if key == keyboard.Key.esc:
+                    return False
+    
+            with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
+                listener.join()
+    elif first_choice == "4":
+        print("removing macro")
+        print(macro_lst)
+        print("what macro would you like to remove")
+        macro_to_remove = input("> ")
+        universal_counter = 0
+        for group in macro_lst:
+            if macro_to_remove == group[0]:
+                macro_lst.remove(group)
+                macro_key_lst.pop(universal_counter)
+                macro_text_lst.pop(universal_counter)
+            universal_counter += 1
+                
+
+    elif first_choice == "5":
+        print("Exiting")
+        Running = False
+    else:
+        print("Invalid choice please try again")
