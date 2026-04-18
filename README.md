@@ -6,4 +6,5 @@ THIS CODE CANNOT BE RUN AS A DEMO THEREFORE THE ONLY WAY TO RUN IT IS TO INSTALL
 THIS IS BECAUSE THIS REQURES ACCES TO YOUR KEYBOARD AND EACH OPERATING SYSTEM HAS ITS OWN WAY TO ALLOW THAT 
 AND I CANT ACCOUNT FOR EVERYTHING
 
+This is just what the code is this cannot run
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/OWNER/REPO-NAME)
