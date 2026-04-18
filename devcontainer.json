@@ -1,4 +1,14 @@
 {
+    "features": {
+    "ghcr.io/devcontainers/features/desktop-lite:1": {}
+    },
+    "forwardPorts": [6080],
+    "portsAttributes": {
+    "6080": {
+        "label": "VNC Desktop",
+        "onAutoForward": "openPreview"
+    }
+    },
     "name": "Python 3",
     "image": "mcr.microsoft.com/devcontainers/python:3",
     "postCreateCommand": "pip3 install --user pynput",
