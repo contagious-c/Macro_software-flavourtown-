@@ -2,9 +2,9 @@
 A software to handle macro creation, editing and running
 python3 version 3.13.12
 
-THIS CODE CANNOT BE RUN AS A DEMO THEREFORE THE ONLY WAY TO RUN IT IS TO INSTALL THE CODE AND RUN IT ON A PYTHON IDE
-THIS IS BECAUSE THIS REQURES ACCES TO YOUR KEYBOARD AND EACH OPERATING SYSTEM HAS ITS OWN WAY TO ALLOW THAT 
-AND I CANT ACCOUNT FOR EVERYTHING
+THIS CODE CANNOT BE RUN AS A DEMO THEREFORE THE ONLY WAY TO RUN IT IS TO RUN IT ON A PYTHON IDE
+THIS IS BECAUSE THIS REQURES ACCESS TO YOUR KEYBOARD AND GIT HUB DOESN'T ALLOW PYNPUT TO DO THAT
 
-This is just what the code is this cannot run
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/OWNER/REPO-NAME)
+If you do install the code your next steps are
+  Install pynput using python3 -m pip install pynput in the terminal
+  and then run it
